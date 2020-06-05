@@ -21,13 +21,7 @@ namespace DeskBooker.Core.DomainProcessor
                 throw new ArgumentNullException(nameof(request));
             }
 
-            _deskBookingRepository.Save(new DeskBooking 
-            {
-                Fn = request.Fn,
-                Ln = request.Ln,
-                Email = request.Email,
-                Date = request.Date
-            });
+            _deskBookingRepository.Save(CreateDekBooking(request));
 
             return new DeskBookingResult
             {
@@ -38,5 +32,15 @@ namespace DeskBooker.Core.DomainProcessor
             };
         }
 
+        private static DeskBooking CreateDekBooking(DeskBookingRequest request)
+        {
+            return new DeskBooking
+            {
+                Fn = request.Fn,
+                Ln = request.Ln,
+                Email = request.Email,
+                Date = request.Date
+            };
+        }
     }
 }
