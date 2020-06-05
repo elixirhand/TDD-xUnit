@@ -25,6 +25,8 @@ namespace DeskBooker.Core.DomainProcessor
                 throw new ArgumentNullException(nameof(request));
             }
 
+            var result = Create<DeskBookingResult>(request);
+
             var availableDesks = _deskRepository.GetAvailableDesks(request.Date);
             if(availableDesks.FirstOrDefault() is Desk availableDesk)
             {
@@ -33,7 +35,12 @@ namespace DeskBooker.Core.DomainProcessor
                 _deskBookingRepository.Save(deskBooking);
             }
 
-             return Create<DeskBookingResult>(request);
+            else
+            {
+                result.Code = DeskBookingResultCode.NoDeskAvailable;
+            }
+
+            return result;
            
         }
 
