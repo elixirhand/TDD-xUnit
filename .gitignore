@@ -1,0 +1,4 @@
+/bin
+.vs
+/obj
+DeskBooker.Core.Tests.csproj
