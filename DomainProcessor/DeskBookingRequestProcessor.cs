@@ -8,12 +8,17 @@ namespace DeskBooker.Core.DomainProcessor
     internal class DeskBookingRequestProcessor
     {
         private readonly IDeskBookingRepository _deskBookingRepository;
+        private IDeskRepository @object;
 
         public DeskBookingRequestProcessor(IDeskBookingRepository deskBookingRepository)
         {
             _deskBookingRepository = deskBookingRepository;
         }
 
+        public DeskBookingRequestProcessor(IDeskBookingRepository deskBookingRepository, IDeskRepository @object) : this(deskBookingRepository)
+        {
+            this.@object = @object;
+        }
 
         internal DeskBookingResult BookDesk(DeskBookingRequest request)
         {
