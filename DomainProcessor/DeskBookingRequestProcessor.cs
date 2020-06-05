@@ -1,4 +1,5 @@
-﻿using DeskBooker.Core.DataInterface;
+﻿using DeskBooker.Core.BaseEntitiy;
+using DeskBooker.Core.DataInterface;
 using DeskBooker.Core.Domain;
 using System;
 
@@ -21,20 +22,15 @@ namespace DeskBooker.Core.DomainProcessor
                 throw new ArgumentNullException(nameof(request));
             }
 
-            _deskBookingRepository.Save(CreateDekBooking(request));
+            _deskBookingRepository.Save(Create<DeskBooking>(request));
 
-            return new DeskBookingResult
-            {
-                Fn = request.Fn,
-                Ln = request.Ln,
-                Email = request.Email,
-                Date = request.Date
-            };
+            return Create<DeskBookingResult>(request);
+           
         }
 
-        private static DeskBooking CreateDekBooking(DeskBookingRequest request)
+        private static T Create<T>(DeskBookingRequest request) where T : DeskBookingBase, new()
         {
-            return new DeskBooking
+            return new T
             {
                 Fn = request.Fn,
                 Ln = request.Ln,
